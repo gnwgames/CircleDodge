@@ -4,6 +4,8 @@ var Circle = function (game, x, y) {
   this.game.physics.arcade.enable(this);
   this.body.gravity.y = 300;
   this.scale.setTo(.3,.3);
+  this.checkWorldBounds = true;
+  this.outOfBoundsKill = true;
 };
 
 Circle.prototype = Object.create(Phaser.Sprite.prototype);

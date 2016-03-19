@@ -32,12 +32,12 @@ Player.prototype.constructor = Player;
 
 Player.prototype.l = function() {
   this.animations.play('left');
-  this.body.velocity.x = -200;
+  this.body.velocity.x = -250;
 };
 
 Player.prototype.r = function () {
   this.animations.play('right');
-  this.body.velocity.x = 200
+  this.body.velocity.x = 250
 };
 
 Player.prototype.jump = function () {
@@ -141,59 +141,20 @@ Player.prototype.handleInput = function (keys) {
               break;
       }
   }
-};
-/*
-function collidePlayer(player, obj) {
-  if (obj.instanceType === 'Enemy') {
-      if ((obj.body.touching.up) && (player.equippedWeapon)) {
-          player.body.velocity.y = -200;
-
-      }
-      else if (obj.body.touching.up) {
-          player.body.velocity.y = -200;
-      }
-      else {
-          //Animate death - blinking sprite, which disappears and then reappears at 0,0
-          var dir;
-          if (obj.body.touching.left || obj.body.touching.down) { dir = 'left'; }
-          else { dir = 'right'; }
-          player.animateInjury(dir);
-          player.lifeCount -= 1;
-      }
-  }
-  else if (obj.instanceType === 'Warlck') {
-      if ((obj.body.touching.up) && (player.equippedWeapon)) {
-          player.body.velocity.y = -200;
-          player.equippedWeapon.kill();
-          player.equippedWeapon = null;
-          obj.lifeCount -= 2;
-      }
-      else if (obj.body.touching.up) {
-          player.body.velocity.y = -200;
-      }
-      else {
-          //Animate death - blinking sprite, which disappears and then reappears at 0,0
-          var dir;
-          if (obj.body.touching.left || obj.body.touching.down) { dir = 'left'; }
-          else { dir = 'right'; }
-          player.animateInjury(dir);
-          player.lifeCount -= 2;
-      }
-  }
-  else if (player.equippedWeapon) {
-      player.equippedWeapon.kill();
-      player.equippedWeapon = null;
-  }
-
-  if (player.lifeCount < 0) { player.kill() }
-  if (obj.lifeCount < 0) { obj.kill(); }
 }
-/*
-Player.prototype.animateInjury = function(dir) {
-  this.state = STATE.INJURED;
-  this.animations.play('blink');
-  if (dir === 'left') { this.body.velocity.x = 200; }
-  if (dir === 'right') { this.body.velocity.x = -200; }
-  this.body.velocity.y = -150;
-};
-*/
+
+function collidePlayer(player, obj) {
+  if (obj.instanceType === 'Circle') {
+    if (obj.body.touching.up) {
+        return;
+    }
+    else {
+        //Animate death - blinking sprite, which disappears and then reappears at 0,0
+        var dir;
+        if (obj.body.touching.left || obj.body.touching.down) { dir = 'left'; }
+        else { dir = 'right'; }
+      //  player.animateInjury(dir);
+        player.lifeCount -= 1;
+    }
+  }
+}
