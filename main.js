@@ -7,7 +7,7 @@ function preload() {
   CircleDodge.game.load.script('Player.js', './objects/Player.js')
   CircleDodge.game.load.script('Circle.js', './objects/Circle.js')
   CircleDodge.game.load.spritesheet('dude', './assets/sprites/dude_spritesheet.png', 128, 128);
-  CircleDodge.game.load.spritesheet('circle', './assets/sprites/circle.png',100,100);
+  CircleDodge.game.load.spritesheet('circle', './assets/sprites/circle.png',360,360);
 }
 
 function create() {
@@ -15,7 +15,7 @@ function create() {
   this.game.stage.backgroundColor = '#ffffff';
 
   CircleDodge.player = new Player(this.game, 50, 50);
-  var circle = new Circle(this.game,100,100,'circle');
+  var circle = new Circle(this.game,50,50);
   keys = CircleDodge.game.input.keyboard.createCursorKeys();
 
 }
