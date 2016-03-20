@@ -18,7 +18,7 @@ var Player = function(game, x, y) {
   this.frame = 0;
   this.animations.add('right', [11,12,13,14,15,16,17,18,19,20,21], 20, true);
   this.animations.add('left', [61,62,63,64,65,66,67,68,69,70,71], 20, true);
-  this.animations.add('blink', [105,0,105,0], 20, true);
+  this.animations.add('blink', [105,0], 10, false);
   this.body.gravity.y = 500;
   this.body.bounce.y = 0.2;
   this.body.collideWorldBounds = true;
@@ -141,22 +141,19 @@ Player.prototype.handleInput = function (keys) {
           case STATE.DIVING:
               //dive attack, jack
               break;
-      }
-  }
+          }
+    }
+};
+
+
+Player.prototype.animateInjury = function() {
+  this.animations.play('blink');
 }
 
 function collidePlayer(player, obj) {
-  if (obj.instanceType === 'Circle') {
-    if (obj.body.touching.up) {
-        return;
-    }
-    else {
-        //Animate death - blinking sprite, which disappears and then reappears at 0,0
-        var dir;
-        if (obj.body.touching.left || obj.body.touching.down) { dir = 'left'; }
-        else { dir = 'right'; }
-      //  player.animateInjury(dir);
-        player.lifeCount -= 1;
-    }
-  }
+  //Animate death - blinking sprite, which disappears and then reappears at 0,0
+  player.animateInjury();
+  obj.body.velocity.x = 300;
+  obj.body.velocity.y = -300;
+  player.lifeCount -= 1;
 }
