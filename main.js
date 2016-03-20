@@ -12,6 +12,8 @@ function preload() {
 }
 
 function create() {
+  dropInterval = 3;
+
   this.game.physics.startSystem(Phaser.Physics.Arcade);
   this.game.stage.backgroundColor = '#ffffff';
 
@@ -30,31 +32,35 @@ function create() {
 function update() {
   CircleDodge.player.handleInput(keys);
   switch (circlesDropped) {
-    case (circlesDropped > 10):
-      console.log('here');
+    case 10:
       dropInterval = 2;
       break;
-    case (circlesDropped > 20):
+    case 20:
       dropInterval = 1;
       break;
-    case (circlesDropped > 30):
+    case 40:
       dropInterval = 0.75;
       break;
-    case (circlesDropped > 40):
+    case 80:
       dropInterval = 0.5;
       break;
-    case (circlesDropped > 50):
+    case 160:
       dropInterval = 0.25;
       break;
+    case 320:
+      dropInterval = 0.15;
+      break;
     default:
-      dropInterval = 3;
+      dropInterval = dropInterval;
       break;
   }
 
-  var now = new Date().getSeconds();
+  var now = new Date().getTime() / 1000;
+  console.log(circlesDropped);
+  console.log(dropInterval);
   if (now > (lastDroppedTime + dropInterval)) {
     var xPoint = Math.floor((Math.random() * 800) + 1);
-    var circle = new Circle(this.game,xPoint,-100);
+    var circle = new Circle(this.game, xPoint, -100);
     circlesGroup.addCircle(circle);
     lastDroppedTime = now;
     circlesDropped++;
