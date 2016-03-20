@@ -153,7 +153,9 @@ Player.prototype.animateInjury = function() {
 function collidePlayer(player, obj) {
   //Animate death - blinking sprite, which disappears and then reappears at 0,0
   player.animateInjury();
-  obj.body.velocity.x = 300;
+  if (obj.body.position.x > player.body.position.x) {
+    obj.body.velocity.x = 300;
+  } else { obj.body.velocity.x = -300; }
   obj.body.velocity.y = -300;
   player.lifeCount -= 1;
 }
