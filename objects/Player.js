@@ -18,6 +18,7 @@ var Player = function(game, x, y) {
   this.frame = 0;
   this.animations.add('right', [11,12,13,14,15,16,17,18,19,20,21], 20, true);
   this.animations.add('left', [61,62,63,64,65,66,67,68,69,70,71], 20, true);
+  this.animations.add('blink', [105,0,105,0], 20, true);
   this.body.gravity.y = 500;
   this.body.bounce.y = 0.2;
   this.body.collideWorldBounds = true;
@@ -25,6 +26,7 @@ var Player = function(game, x, y) {
   this.jumpCount = 0;
   this.state = STATE.STANDING;
   this.lifeCount = 100;
+  this.scale.setTo(.7,.7);
 };
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
