@@ -1,7 +1,7 @@
 var CircleDodge = CircleDodge || {};
-var keys, circlesGroup, lastDroppedTime, dropInterval, circlesDropped;
+var keys, circlesGroup, lastDroppedTime, dropInterval, circlesDropped, lifeCount;
 
-CircleDodge.game = new Phaser.Game(800, 800, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+CircleDodge.game = new Phaser.Game(1200, 800, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
   CircleDodge.game.load.script('Player.js', './objects/Player.js');
@@ -27,6 +27,7 @@ function create() {
 
   keys = CircleDodge.game.input.keyboard.createCursorKeys();
 
+  lifeCount = this.game.add.text(10,780, "Life Count: " + CircleDodge.player.lifeCount, {'fill': 'black', fontSize: '14pt'});
 }
 
 function update() {
@@ -56,8 +57,6 @@ function update() {
   }
 
   var now = new Date().getTime() / 1000;
-  console.log(circlesDropped);
-  console.log(dropInterval);
   if (now > (lastDroppedTime + dropInterval)) {
     var xPoint = Math.floor((Math.random() * 800) + 1);
     var circle = new Circle(this.game, xPoint, -100);
@@ -74,4 +73,7 @@ function update() {
   });
 
   CircleDodge.game.physics.arcade.collide(circlesGroup, circlesGroup);
+
+  lifeCount.text = "Life Count: " + CircleDodge.player.lifeCount;
+  if (CircleDodge.player.lifeCount < 30) { lifeCount.fill = 'red'; } else { lifeCount.fill = 'black'; }
 }
